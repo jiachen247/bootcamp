@@ -4,7 +4,7 @@
   "description": "# basic-node-bootcamp",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon my-app/index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
