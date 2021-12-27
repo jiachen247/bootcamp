@@ -9,6 +9,14 @@ $ npm install
 $ node index.js
 ```
 
+## Test via page
+
+1. Visit `http://localhost:3004/new-sighting`
+   ![](2021-12-27-11-25-27.png)
+
+2. After clicking submit, it should take you to this page
+   ![](2021-12-27-11-26-05.png)
+
 ## Test via Curl
 
 1. `curl -d "YEAR=1989&SEASON=spring" -X POST http://localhost:3004/sighting`
