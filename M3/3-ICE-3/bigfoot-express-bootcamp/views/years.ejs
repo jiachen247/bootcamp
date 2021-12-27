@@ -1,0 +1,12 @@
+<html>
+  <body>
+    <h1>Years Directory</h1>
+    <div>
+      <ul>
+        <% years.forEach((year) => { %>
+        <li><a href="/year-sightings/<%= year %>">Sighting <%= year %></a></li>
+      <% }); %>
+      <ul>
+    </div>
+  </body>
+</html>
