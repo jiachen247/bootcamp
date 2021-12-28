@@ -1,0 +1,15 @@
+.jumbotron {
+  background-color: darkorange;
+  margin: 10px 10px;
+  border: white solid 10px;
+  font-weight: 100;
+  font-family: Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+.nav-row {
+  background-color: lightgrey;
+}
+
+.main-column {
+  padding-top: 20px;
+}
