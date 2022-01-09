@@ -6,7 +6,7 @@
 $ npm install
 ```
 
-- copy and paste `init.sql` into psql prompt
+- copy and paste `init_tables.sql` into psql prompt
 
 ## Test
 
