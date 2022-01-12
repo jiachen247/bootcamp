@@ -25,9 +25,6 @@ document.body.appendChild(emojis);
 
 // Function used to update and draw emojis
 function drawEmoji(emoji) {
-  // Clear current emojis
-  emojis.innerHTML = '';
-
   const emojiLine = emoji + emoji + emoji + "<br/>"
   emojis.innerHTML = emojiLine + emojiLine + emojiLine;
 }
