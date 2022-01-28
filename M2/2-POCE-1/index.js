@@ -2,6 +2,8 @@
 // $ node index.js rgbhex 'rgb(255,255,254)'
 // See for conversion: https://stackoverflow.com/questions/57803/how-to-convert-decimal-to-hexadecimal-in-javascript
 
+import { add, minus, divide } from './addition.js';
+
 const HEX2RGB = 'hexrgb';
 const RGB2HEX = 'rgbhex';
 
