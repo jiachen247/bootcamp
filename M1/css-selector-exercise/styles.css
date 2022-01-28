@@ -1,0 +1,30 @@
+/* choose a colour and make it the background colour of the page  */
+body {
+  background-color: orange;
+}
+
+/* make the H1 backgeround colour white */
+h1 {
+  background-color: white;
+}
+
+/* make all paragraphs have font size of 2em */
+/* 1em = default browser font size */
+p {
+  font-size: 2em;
+}
+
+/* make the first div have a different background colour than the page */
+div {
+  background-color: blue;
+}
+
+/* make the second div have a different background colour than the first div */
+div div {
+  background-color: white;
+}
+
+/* make the first paragraph inside the first div have a different background colour and font size than the other paragraphs */
+h2 + p {
+  background-color: lightblue;
+}
