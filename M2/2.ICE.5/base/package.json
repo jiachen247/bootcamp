@@ -1,0 +1,28 @@
+{
+  "name": "base-node-bootcamp",
+  "version": "1.0.0",
+  "description": "# basic-node-bootcamp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rocketacademy/base-node-bootcamp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rocketacademy/base-node-bootcamp/issues"
+  },
+  "homepage": "https://github.com/rocketacademy/base-node-bootcamp#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.12.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.6"
+  }
+}
