@@ -17,7 +17,7 @@
 
 ```
 $ npm install
-$ npm install --save express
+$ npm install express
 $ node index.js
 ```
 

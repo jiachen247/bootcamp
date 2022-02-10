@@ -41,15 +41,7 @@ app.get('/sightings/:index', (request, response) => {
       response.send('invalid index');
       return;
     }
-    const content = genSightingHTML(data.sightings[index]);
-    response.send(`
-      <html>
-        <body>
-          <h3>Sighting #${index}</h1>
-          ${content}
-        </body>
-      </html>
-    `);
+    response.render('index', data.sightings[index]);
   });
 });
 
@@ -87,4 +79,4 @@ app.get('/year-sightings/:year', (request, response) => {
   });
 });
 
-app.listen(3004);
+app.listen(3005);
