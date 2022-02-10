@@ -3,11 +3,11 @@
     <h1>Directory</h1>
     <div>
       <ul>
-        <% for (var i =0; i < count; i++ ) { %>
+        <% sightings.forEach((_, index) => {%>
           <li>
-            <a href="/sightings/<%= i %>">Sighting <%= i %></a>
+            <a href="/sightings/<%= index %>">Sighting <%= index %></a>
           </li>
-        <% } %>
+        <% }); %>
       <ul>
     </div>
   </body>
