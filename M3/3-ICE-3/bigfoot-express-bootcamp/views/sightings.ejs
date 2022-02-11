@@ -1,0 +1,20 @@
+<html>
+  <body>
+    <% sightings.forEach((sighting, index) => { %>
+    <h1>Sightingg <%= index %></h1>
+    <div>
+      <div>Year: <%= sighting.YEAR %></div>
+      <div>Season: <%= sighting.SEASON %></div>
+      <div>State: <%= sighting.STATE %></div>
+      <div>Country: <%= sighting.COUNTY %></div>
+      <div>Location: <%= sighting.LOCATION_DETAILS %></div>
+      <div>Observed: <%= sighting.OBSERVED %></div>
+      <div>Other Witnesses: <%= sighting.OTHER_WITNESSES %></div>
+      <div>Time and Conditions: <%= sighting.TIME_AND_CONDITIONS %></div>
+      <div>Report Number: <%= sighting.REPORT_NUMBER %></div>
+      <div>Report Class: <%= sighting.REPORT_CLASS %></div>
+    </div>
+    <hr class="solid" />
+    <% }); %>
+  </body>
+</html>
