@@ -1,1 +1,6 @@
-{"recipes":[{"label":"banana shake","ingredients":"bananas"},{"label":"hello","ingredientsssssssss":"world"}]}
+{
+  "recipes": [
+    { "label": "banana shake", "ingredients": "bananas" },
+    { "label": "hello", "ingredients": "world" }
+  ]
+}
