@@ -33,7 +33,7 @@ app.get('/year-sightings/:year', (request, response) => {
     const { year } = request.params;
     const { sort } = request.query;
 
-    const sightings = data.sightings.filter((sighting) => sighting.YEAR === year);
+    const sightings = data.sightings.filter((sighting) => sighting?.YEAR === year);
 
     if (sort === 'asc') {
       sightings.sort(compareState);
@@ -60,7 +60,7 @@ app.get('/years', (_, response) => {
     const uniqueYears = new Set();
 
     data.sightings.forEach((sighting) => {
-      if (sighting.YEAR !== undefined) {
+      if (sighting?.YEAR) {
         uniqueYears.add(sighting.YEAR);
       }
     });

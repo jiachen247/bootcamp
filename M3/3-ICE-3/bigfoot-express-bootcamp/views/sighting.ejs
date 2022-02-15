@@ -1,48 +1,6 @@
 <html>
   <body>
-    <h1>Sighting <%= index %></h1>
-    <div>
-      <% if (sighting.YEAR) { %>
-      <div>Year: <%= sighting.YEAR %></div>
-      <% } %>
-      <!---->
-      <% if (sighting.SEASON) { %>
-      <div>Season: <%= sighting.SEASON %></div>
-      <% } %>
-      <!---->
-      <% if (sighting.STATE) { %>
-      <div>State: <%= sighting.STATE %></div>
-      <% } %>
-      <!---->
-      <% if (sighting.COUNTY) { %>
-      <div>Country: <%= sighting.COUNTY %></div>
-      <% } %>
-      <!---->
-      <% if (sighting.LOCATION_DETAILS) { %>
-      <div>Location: <%= sighting.LOCATION_DETAILS %></div>
-      <% } %>
-      <!---->
-      <% if (sighting.OBSERVED) { %>
-      <div>Observed: <%= sighting.OBSERVED %></div>
-      <% } %>
-      <!---->
-      <% if (sighting.OTHER_WITNESSES) { %>
-      <div>Other Witnesses: <%= sighting.OTHER_WITNESSES %></div>
-      <% } %>
-      <!---->
-      <% if (sighting.TIME_AND_CONDITIONS) { %>
-      <div>Time and Conditions: <%= sighting.TIME_AND_CONDITIONS %></div>
-      <% } %>
-      <!---->
-      <% if (sighting.REPORT_NUMBER) { %>
-      <div>Report Number: <%= sighting.REPORT_NUMBER %></div>
-      <% } %>
-      <!---->
-      <% if (sighting.REPORT_CLASS) { %>
-      <div>Report Class: <%= sighting.REPORT_CLASS %></div>
-      <% } %>
-      <!---->
-    </div>
+    <%- include('sighting-partial', {index, sighting}); %>
     <hr class="solid" />
   </body>
 </html>
