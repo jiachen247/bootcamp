@@ -35,7 +35,7 @@ const whenIncomingRequestIndex = (req, res) => {
     const recipe = data.recipes[index];
     console.log(recipe);
 
-    const favorite = req.cookies.favorite || "";
+    const favorite = req.cookies?.favorite;
 
     res.render('recipe', { index, favorite, recipe });
   });

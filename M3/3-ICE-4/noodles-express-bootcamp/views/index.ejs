@@ -45,11 +45,9 @@
             <ul>
               <% for (let i = 0; i < recipes.length; i += 1) { %>
               <li><a href="/recipes/<%= i %>"><%=recipes[i].label %></a>
-              <% if (favorite == i) { %>
+              <% if (favorite === `${i}`) { %>
                   <span style="color:red;"> (FAVORITE) </span>
               <% } %>
-              
-              
               </li>
               <% } %>
             </ul>
