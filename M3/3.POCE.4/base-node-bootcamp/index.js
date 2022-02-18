@@ -12,7 +12,7 @@ const client = new Client({
 client.connect();
 console.log('successfully connected');
 
-// Test commands
+// Example commands
 // node index.js log breakfast 'nasi lemak' 0 true
 // node index.js report
 
