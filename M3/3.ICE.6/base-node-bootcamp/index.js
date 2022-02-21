@@ -23,6 +23,7 @@ const whenQueryDone = (error, result) => {
     console.log('error', error);
   } else {
     // rows key has the data
+    console.log('Success!');
     console.log(result.rows);
   }
 
@@ -30,60 +31,63 @@ const whenQueryDone = (error, result) => {
   client.end();
 };
 
-const whenCatQueryDone = (error, result) => {
-  // this error is anything that goes wrong with the query
-  if (error) {
-    console.log('error', error);
-  } else {
-    console.log('Cats:');
-    console.log(result.rows.map((row, index) => `${index + 1}. ${row.cat_name}: Owner: ${row.owner_name}`).join('\n'));
-  }
-
-  // close the connection
-  client.end();
-};
-
-const whenOwnerQueryDone = (error, result) => {
-  // this error is anything that goes wrong with the query
-  if (error) {
-    console.log('error', error);
-  } else {
-    console.log('Owners:');
-    const owners = new Set(result.rows.map((row) => row.owner_name));
-    let index = 1;
-    // eslint-disable-next-line no-restricted-syntax
-    for (const ownerName of owners.values()) {
-      console.log(`${index}. ${ownerName}`);
-      console.log('    - Cats');
-      // eslint-disable-next-line no-restricted-syntax
-      result.rows.filter((row) => row.owner_name === ownerName).forEach(
-        (row) => {
-          console.log(`        - ${row.cat_name}`);
-        },
-      );
-      index += 1;
-    }
-  }
-
-  // close the connection
-  client.end();
-};
-
-const command = process.argv[2] || '';
-
 function handleCreateOwner() {
   const ownerName = process.argv[3];
   console.log(`Adding ${ownerName} to cat_owners`);
-  const sqlQuery = `INSERT INTO cat_owners (name) VALUES ('${ownerName}');`;
-  client.query(sqlQuery, whenQueryDone);
+  const createOwnerQuery = 'INSERT INTO cat_owners (name) VALUES ($1);';
+  const ownerData = [ownerName];
+  client.query(createOwnerQuery, ownerData, whenQueryDone);
 }
 
 function handleCreateCat() {
   const ownerId = process.argv[3];
   const catName = process.argv[4];
   console.log(`Adding cat (${catName}) with owner (${ownerId})`);
-  const sqlQuery = `INSERT INTO cats (name, owner_id) VALUES ('${catName}', ${ownerId});`;
-  client.query(sqlQuery, whenQueryDone);
+  const createCatQuery = 'INSERT INTO cats (name, owner_id) VALUES ($1, $2);';
+  const catData = [
+    catName,
+    ownerId,
+  ];
+
+  client.query(createCatQuery, catData, whenQueryDone);
+}
+
+function whenCatQueryDone(error, results) {
+  if (error) {
+    console.log(`Error: ${error}`);
+    return;
+  }
+  console.log('Cats: ');
+  results.rows.forEach((result, index) => {
+    const { cat_name, owner_name } = result;
+    console.log(`  ${index + 1}. ${cat_name}: ${owner_name}`);
+    client.end();
+  });
+}
+
+function whenOwnerQueryDone(error, results) {
+  if (error) {
+    console.log(`Error: ${error}`);
+    return;
+  }
+
+  const ownersMap = {};
+
+  results.rows.forEach((result) => {
+    const { cat_name, owner_name } = result;
+    if (!(owner_name in ownersMap)) {
+      ownersMap[owner_name] = [];
+    }
+    ownersMap[owner_name].push(cat_name);
+  });
+  console.log('Owners: ');
+  Object.entries(ownersMap).forEach(([ownerName, catNames]) => {
+    console.log(`  - ${ownerName}`);
+    catNames
+      .filter((x) => x != null)
+      .forEach((catName, index) => console.log(`    ${index + 1}. ${catName}`));
+  });
+  client.end();
 }
 
 function handleCats() {
@@ -91,7 +95,7 @@ function handleCats() {
   const sqlQuery = `
   SELECT cats.name AS cat_name, cat_owners.name AS owner_name
   FROM cats
-  INNER JOIN cat_owners
+  JOIN cat_owners
   ON cats.owner_id = cat_owners.id;
   `;
   client.query(sqlQuery, whenCatQueryDone);
@@ -102,22 +106,32 @@ function handleOwners() {
   const sqlQuery = `
   SELECT cats.name AS cat_name, cat_owners.name AS owner_name
   FROM cat_owners
-  INNER JOIN cats
+  LEFT JOIN cats
   ON cats.owner_id = cat_owners.id;
   `;
   client.query(sqlQuery, whenOwnerQueryDone);
 }
 
-if (command === 'create-owner') {
-  handleCreateOwner();
-} else if (command === 'create-cat') {
-  handleCreateCat();
-} else if (command === 'cats') {
-  handleCats();
-}
-else if (command === 'owners') {
-  handleOwners();
-} else {
-  console.log(`Unknown command:${command}`);
-  client.end();
+const CREATE_OWNER = 'create-owner';
+const CREATE_CAT = 'create-cat';
+const LIST_CATS = 'cats';
+const LIST_OWNERS = 'owners';
+
+const command = process.argv[2] ?? '';
+
+switch (command) {
+  case CREATE_OWNER:
+    handleCreateOwner();
+    break;
+  case CREATE_CAT:
+    handleCreateCat();
+    break;
+  case LIST_CATS:
+    handleCats();
+    break;
+  case LIST_OWNERS:
+    handleOwners();
+    break;
+  default:
+    console.log(`Error: Unkown command - '${command}'`);
 }
