@@ -35,7 +35,8 @@ Adding exercise 2 to workout 4
 3. List workouts
 
 ```
-jiachen@jiachens-MBP base-node-bootcamp % node index.js get-workouts-by-exerciseWorkouts:
+jiachen@jiachens-MBP base-node-bootcamp % node index.js get-workouts-by-exercise
+Workouts:
 1. workout1
     - deadlift
     - squat

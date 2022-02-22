@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import pg from 'pg';
 
 const { Client } = pg;
@@ -15,22 +16,6 @@ const client = new Client(pgConnectionConfigs);
 
 // make the connection to the server
 client.connect();
-
-// create the query done callback
-const whenQueryDone = (error, result) => {
-  // this error is anything that goes wrong with the query
-  if (error) {
-    console.log('error', error);
-  } else {
-    // rows key has the data
-    console.log(result.rows);
-  }
-
-  // close the connection
-  client.end();
-};
-
-const command = process.argv[2] || '';
 
 const whenExerciseQueryDone = (error, result) => {
   // this error is anything that goes wrong with the query
@@ -52,11 +37,8 @@ function handleExercises() {
 
 function handleAddWorkout() {
   const [
-    // eslint-disable-next-line no-unused-vars
     appName,
-    // eslint-disable-next-line no-unused-vars
     scriptName,
-    // eslint-disable-next-line no-unused-vars
     cmdName,
     workoutName,
     workoutDate,
@@ -71,12 +53,18 @@ function handleAddWorkout() {
     } else {
       const workoutId = result.rows[0].id;
       // eslint-disable-next-line no-restricted-syntax
-      for (const exercise of workoutExercises) {
+
+      workoutExercises.forEach((exercise) => {
         console.log(`Adding exercise ${exercise} to workout ${workoutId}`);
-        const addExerciseToWorkoutSqlQuery = `INSERT INTO exercise_workouts (exercise_id, workout_id) VALUES (${exercise}, ${workoutId})`;
-        client.query(addExerciseToWorkoutSqlQuery, () => null);
-      }
+        const workoutData = [
+          exercise,
+          workoutId,
+        ];
+        const addExerciseToWorkoutSqlQuery = 'INSERT INTO exercise_workouts (exercise_id, workout_id) VALUES ($1, $2)';
+        client.query(addExerciseToWorkoutSqlQuery, workoutData, () => null);
+      });
     }
+    // Race condition to be handled with promises later :-)
     // client.end();
   });
 }
@@ -109,13 +97,23 @@ function handleGetWorkouts() {
   });
 }
 
-if (command === 'exercises') {
-  handleExercises();
-} else if (command === 'add-workout') {
-  handleAddWorkout();
-} else if (command === 'get-workouts-by-exercise') {
-  handleGetWorkouts();
-} else {
-  console.log(`Unknown command:${command}`);
-  client.end();
+const command = process.argv[2] || '';
+
+const EXERCISES = 'exercises';
+const ADD_WORKOUT = 'add-workout';
+const GET_WORKOUT = 'get-workouts-by-exercise';
+
+switch (command) {
+  case EXERCISES:
+    handleExercises();
+    break;
+  case ADD_WORKOUT:
+    handleAddWorkout();
+    break;
+  case GET_WORKOUT:
+    handleGetWorkouts();
+    break;
+  default:
+    console.log(`Unknown command:${command}`);
+    client.end();
 }
