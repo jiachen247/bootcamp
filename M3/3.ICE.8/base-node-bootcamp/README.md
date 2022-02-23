@@ -5,7 +5,6 @@
 ```
 $ npm install
 $ psql -f init_tables.sql
-$ psql -f seed.sql
 ```
 
 ## Base

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import pg from 'pg';
 
 const { Client } = pg;
@@ -29,19 +30,10 @@ const whenInsertQueryDone = (error, _) => {
   client.end();
 };
 
-// create the query done callback
-const whenQueryDone = (error, result) => {
-  // this error is anything that goes wrong with the query
-  if (error) {
-    console.log('error', error);
-  } else {
-    // rows key has the data
-    console.log(result.rows);
-  }
-
-  // close the connection
-  client.end();
-};
+function handleNewPainting() {
+  const sqlQuery = 'INSERT INTO paintings (name, artist_id, collection_id) VALUES ($1, $2, $3);';
+  client.query(sqlQuery, args, whenInsertQueryDone);
+}
 
 const whenGetArtistsFromCollectionQueryDone = (error, result) => {
   if (error) {
@@ -52,22 +44,9 @@ const whenGetArtistsFromCollectionQueryDone = (error, result) => {
   client.end();
 };
 
-const [
-  // eslint-disable-next-line no-unused-vars
-  _appName,
-  // eslint-disable-next-line no-unused-vars
-  _scriptName,
-  command,
-  ...args
-] = process.argv;
-
-if (command === 'new-painting') {
-  const sqlQuery = 'INSERT INTO paintings (name, artist_id, collection_id) VALUES ($1, $2, $3);';
-  client.query(sqlQuery, args, whenInsertQueryDone);
-} else if (command === 'get-artists') {
-  const collectionName = args[0];
+function handleGetArtists(collectionName) {
   const sqlQuery = `
-  SELECT artists.name 
+  SELECT DISTINCT artists.name
   FROM artists 
   INNER JOIN paintings
   ON artists.id = paintings.artist_id
@@ -78,6 +57,23 @@ if (command === 'new-painting') {
   client.query(sqlQuery, [collectionName], whenGetArtistsFromCollectionQueryDone);
 }
 
-else {
-  console.log(`Unknown command: ${command}`);
+const [
+  _appName,
+  _scriptName,
+  command,
+  ...args
+] = process.argv;
+
+const NEW_PAINTING = 'new-painting';
+const GET_ARTISTS = 'get-artists';
+
+switch (command) {
+  case NEW_PAINTING:
+    handleNewPainting();
+    break;
+  case GET_ARTISTS:
+    handleGetArtists(args[0]);
+    break;
+  default:
+    console.log(`Error: Unknown command ${command}`);
 }
