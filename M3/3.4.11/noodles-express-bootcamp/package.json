@@ -1,0 +1,32 @@
+{
+  "name": "noodles-express-swe1",
+  "version": "1.0.0",
+  "description": "# base-node-swe1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rocketacademy/noodles-express-swe1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rocketacademy/noodles-express-swe1/issues"
+  },
+  "homepage": "https://github.com/rocketacademy/noodles-express-swe1#readme",
+  "devDependencies": {
+    "eslint": "^7.13.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  },
+  "type": "module",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "multer": "^1.4.4"
+  }
+}
