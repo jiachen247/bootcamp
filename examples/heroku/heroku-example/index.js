@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 let pgConnectionConfigs;
 
 // test to see if the env var is set. Then we know we are in Heroku
-if (process.env.DATABASE_URL) {
+if (process.env.ENVIRONMENT == "prod") {
   // pg will take in the entire value and use it to connect
   pgConnectionConfigs = {
     connectionString: process.env.DATABASE_URL,
