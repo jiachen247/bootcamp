@@ -1,5 +1,6 @@
 import express from 'express';
 import pg from 'pg';
+import 'dotenv/config'
 
 const { Pool } = pg;
 const PORT = process.env.PORT || 3004;
@@ -41,6 +42,10 @@ app.get('/bananas', (request, response) => {
 app.get("/cats", (request, response) => {
   pool.query("SELECT * FROM cats;")
   .then((results) => response.send(results.rows))
+});
+
+app.get("/secret", (request, response) => {
+  response.send(`SECRET: ${process.env.SECRET}`)
 });
 
 app.listen(PORT);
