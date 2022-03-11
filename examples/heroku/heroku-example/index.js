@@ -1,6 +1,6 @@
 import express from 'express';
 import pg from 'pg';
-import 'dotenv/config'
+// import 'dotenv/config'
 
 const { Pool } = pg;
 const PORT = process.env.PORT || 3004;
