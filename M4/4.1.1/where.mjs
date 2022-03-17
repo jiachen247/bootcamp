@@ -5,5 +5,5 @@ db.Item.findAll({
     name: [process.argv[2]],
   },
 })
-  .then((items) => console.log(items[0]))
-  .catch((error) => console.log(error));
+.then((items) => console.log(items[0]))
+.catch((error) => console.log(error));
