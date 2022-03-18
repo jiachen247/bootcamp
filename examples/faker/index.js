@@ -1,3 +1,6 @@
+// See: https://bootcamp.rocketacademy.co/5-full-stack-applications/5.ice-in-class-exercises/5.ice.1-full-stack-modal#fake-data
+// $ npm install @faker-js/faker -D
+
 const { faker } = require('@faker-js/faker');
 
 let firstName = faker.name.firstName();
