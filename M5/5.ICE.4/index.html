@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<header>
+  <meta charset="utf-8" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-loading-overlay@1.2.0/dist/js-loading-overlay.min.js"></script>
+</header>
+
+<body>
+  <h1>Testing the Open Meteo Weather API</h1>
+  <input type="button" name="button" id="button1" value="Fetch Data">
+  <h1>Current Weather in Singapore 🇸🇬</h1>
+  <div id='results'>
+  </div>
+  <script>
+    document.getElementById('button1').addEventListener('click', async () => {
+      console.log('Accessing Weather Data');
+
+      //show the loading overlay
+      JsLoadingOverlay.show();
+
+      // Use the URL builder on Open Meteo's site to generate this type of a URL 
+      axios.get(`https://api.open-meteo.com/v1/forecast?latitude=1.2894&longitude=103.8500&daily=temperature_2m_max,temperature_2m_min&current_weather=true&timezone=Asia%2FSingapore`)
+        .then((result) => {
+
+          console.log(result);
+
+          //hide the loading overlay
+          JsLoadingOverlay.hide();
+
+          // Prepare data and HTML elements to be shown on the webpage
+          const currentTemp = result["data"]["current_weather"]["temperature"]
+          const tempElement = document.createElement('p');
+          tempElement.innerText = `Current temperature: ${currentTemp} C`
+
+          const windspeed = result["data"]["current_weather"]["windspeed"]
+          const windElement = document.createElement('p');
+          windElement.innerText = `Current windspeed: ${windspeed} km/h`
+
+          document.getElementById('results')
+            .appendChild(tempElement);
+          document.getElementById('results')
+            .appendChild(windElement);
+        })
+        .catch((error) => {
+
+          //hide the loading overlay
+          JsLoadingOverlay.hide();
+
+          console.log(error);
+        });
+
+    });
+  </script>
+</body>
+
+</html>
