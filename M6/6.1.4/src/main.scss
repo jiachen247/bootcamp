@@ -1,0 +1,12 @@
+$base-color: #c6538c;
+$border-dark: rgba($base-color, 0.88);
+
+.card {
+  height: 100px;
+  width: 100px;
+  border: 1px solid $border-dark;
+
+  .profile-img {
+    width: 100%;
+  }
+}
