@@ -4,7 +4,7 @@
 # Simple Array Sum
 def simpleArraySum(ar):
     counter = 0
-    for a in ar:
+    for a in ar: # O(n)
         counter += a
     return counter
 
@@ -14,7 +14,7 @@ def compareTriplets(a, b):
     n = len(a)
     alice_points = 0
     bob_points = 0
-    for i in range(n):
+    for i in range(n): # O(n)
         if a[i] > b[i]:
             alice_points += 1
         elif a[i] < b[i]:
@@ -24,14 +24,14 @@ def compareTriplets(a, b):
 
 # A Very Big Sum
 def aVeryBigSum(ar):
-    return sum(ar)
+    return sum(ar) # O(n)
 
 # Diagonal Difference
 def diagonalDifference(arr):
     n = len(arr)
     diag1 = 0
     diag2 = 0
-    for i in range(n):
+    for i in range(n): # O(n)
         diag1 += arr[i][i]
         diag2 += arr[i][n - i - 1]
         
@@ -44,7 +44,7 @@ def plusMinus(arr):
     neg_count = 0.0
     zero_count = 0.0
     
-    for num in arr:
+    for num in arr: # O(n)
         if num > 0:
             pos_count += 1
         elif num < 0:
@@ -58,14 +58,14 @@ def plusMinus(arr):
 
 # Staircase
 def staircase(n):
-    for i in range(1, n+1):
+    for i in range(1, n+1): # O(n)
         print((" "*(n-i)) + ("#"*i))
 
 # Mini Max Sum
 def miniMaxSum(arr):
-    total = sum(arr)
-    low = min(arr)
-    high = max(arr)
+    total = sum(arr) # O(n)
+    low = min(arr) # O(n)
+    high = max(arr) # O(n)
     print("{} {}".format(total - high, total - low))
 
 # Birthday Cake Candles
@@ -73,7 +73,7 @@ def birthdayCakeCandles(candles):
     highest_length = 0
     highest_count = 0
     
-    for candle in candles:
+    for candle in candles: # O(n)
         if candle > highest_length:
             highest_length = candle
             highest_count = 0
