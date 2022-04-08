@@ -1,3 +1,13 @@
-import './styles.scss';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './components/App'
 
-console.log('hello');
+const rootElement = document.createElement('div')
+document.body.appendChild(rootElement)
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  rootElement
+)
