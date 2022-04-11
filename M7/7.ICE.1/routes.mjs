@@ -1,9 +1,8 @@
-import { resolve } from 'path'
-import db from './models/index.mjs'
+import { resolve } from 'path';
 
-export default function bindRoutes (app) {
-  // special JS page. Include the webpack index.html file
-  app.get('/home', (request, response) => {
-    response.sendFile(resolve('dist', 'main.html'))
-  })
+export default function bindRoutes(app) {
+  // Root route returns the Webpack-generated main.html file
+  app.get('/', (request, response) => {
+    response.sendFile(resolve('dist', 'main.html'));
+  });
 }
