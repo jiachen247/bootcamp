@@ -3,26 +3,22 @@ import pokemon from '../react-pokedex.json'
 import Pokemon from './Pokemon'
 
 function App () {
-  const pokeData = []
-  for (var i = 0; i < 20; i++) {
-    const currPokemon = pokemon.pokedex[i]
-    const pokemonToAdd = {
-      name: currPokemon['names']['en'],
-      types: currPokemon['types'],
-      catchRate: currPokemon['catch_rate'],
-      height: currPokemon['height_eu'],
-      weight: currPokemon['weight_eu'],
-      color: currPokemon['color']
-    }
-    pokeData.push(pokemonToAdd)
-  }
-  return (
-    <div>
-      {pokeData.map(pokemon => (
-        <Pokemon pokemonData={pokemon} />
-      ))}
-    </div>
-  )
+  const pokeData = getPokeData()
+  const pokemons = pokeData.map(pokemon => <Pokemon pokemonData={pokemon} />)
+  return <div>{pokemons}</div>
+}
+
+function getPokeData () {
+  const pokeData = pokemon.pokedex.slice(0, 20)
+  const modifiedPokeData = pokeData.map(currPokemon => ({
+    name: currPokemon['names']['en'],
+    types: currPokemon['types'],
+    catchRate: currPokemon['catch_rate'],
+    height: currPokemon['height_eu'],
+    weight: currPokemon['weight_eu'],
+    color: currPokemon['color']
+  }))
+  return modifiedPokeData
 }
 
 export default App
