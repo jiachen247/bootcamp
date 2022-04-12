@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import cardPriority from "./cardPriority.json";
 
 export default function App() {
   // Set the default value of the deck
@@ -7,11 +8,15 @@ export default function App() {
   // Set the default player hand as empty
   const [playerHand, setPlayerHand] = useState([]);
 
+  // Set the default high card as none
+  const [highCard, setHighCard] = useState({});
+
   // Deal 2 cards into the player's hand and update the deck
   const dealCards = () => {
     const hand = [cardDeck.pop(), cardDeck.pop()];
     setPlayerHand(hand);
     setCardDeck([...cardDeck]);
+    setHighCard(getHighCard(hand));
   };
 
   // Render cards in the player hand
@@ -35,9 +40,21 @@ export default function App() {
       <p>
         <button onClick={dealCards}>Deal</button>
       </p>
+      <p>Current high card is: {highCard.name + " " + highCard.suit}</p>
     </div>
   );
 }
+
+const getHighCard = (cards) => {
+  const card1 = cards[0];
+  const card2 = cards[1];
+  // assuming the rank of two cards is never the same
+  if (card1.rank > card2.rank) {
+    return card1;
+  } else {
+    return card2;
+  }
+};
 
 // Shuffle an array of cards
 const shuffleCards = (cards) => {
