@@ -7,6 +7,7 @@ import data from "./data.json"
 const rootElement = document.createElement("div")
 document.body.appendChild(rootElement)
 
+// Tekes in product json and returns product element
 function getProduct({ id, name, description, createdAt, updatedAt }) {
   return (
     <li key={id}>
@@ -19,9 +20,10 @@ function getProduct({ id, name, description, createdAt, updatedAt }) {
   )
 }
 
-function getProducts() {
-  const items = data.items.map(getProduct)
-  return <ul>{items}</ul>
+// Takes in a list of products and returns an unordered list of product elements
+function getProducts(items) {
+  const itemsElements = items.map((getProduct))
+  return <ul>{itemsElements}</ul>
 }
 
-render(getProducts(), rootElement)
+render(getProducts(data.items), rootElement)
