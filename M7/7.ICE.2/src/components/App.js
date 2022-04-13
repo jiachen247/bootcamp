@@ -3,8 +3,8 @@ import pokemon from '../react-pokedex.json'
 import Pokemon from './Pokemon'
 
 function App () {
-  const pokeData = getPokeData()
-  const pokemons = pokeData.map(pokemon => <Pokemon pokemonData={pokemon} />)
+  const pokemons = getPokeData()
+    .map(pokemon => <Pokemon pokemonData={pokemon} />)
   return <div>{pokemons}</div>
 }
 
@@ -16,7 +16,8 @@ function getPokeData () {
     catchRate: currPokemon['catch_rate'],
     height: currPokemon['height_eu'],
     weight: currPokemon['weight_eu'],
-    color: currPokemon['color']
+    color: currPokemon['color'],
+    pokedex: currPokemon['pokedex_entries']
   }))
   return modifiedPokeData
 }
