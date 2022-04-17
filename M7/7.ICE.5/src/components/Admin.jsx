@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
-export default function Admin () {
+export default function Admin ({ items, setItems }) {
   const initialValues = {
     itemName: '',
     itemDescription: '',
@@ -18,8 +19,16 @@ export default function Admin () {
     })
   }
 
-  const handleSubmit = event => {
-      
+  const handleSubmit = () => {
+    const newItem = {
+      name: formValues.itemName,
+      description: formValues.itemDescription,
+      price: formValues.itemPrice
+    }
+    axios.post('/items', newItem).then(result => {
+      console.log(result)
+      setItems([...items, result.data.item])
+    })
   }
 
   return (
@@ -50,7 +59,7 @@ export default function Admin () {
             onChange={handleInputChange}
           />
         </label>
-        <button>Submit</button>
+        <button onClick={handleSubmit}>Submit</button>
       </div>
     </div>
   )

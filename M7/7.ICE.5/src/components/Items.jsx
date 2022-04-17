@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-export default function Items({ items, setItemDetail }) {
-  const [selectedItemIndex, setSelectedItemIndex] = useState();
+export default function Items ({ items, setItemDetail }) {
+  const [selectedItemIndex, setSelectedItemIndex] = useState()
 
   const setItemSelected = (item, index) => {
-    setItemDetail(index);
-    setSelectedItemIndex(index);
-  };
+    setItemDetail(index)
+    setSelectedItemIndex(index)
+  }
 
   return (
-    <div className="col-sm">
-      <div className="items">
+    <div className='col-sm'>
+      <div className='items'>
         {items.map((item, index) => (
           <button
             key={item.id}
-            type="button"
+            type='button'
             className={index === selectedItemIndex ? 'item selected' : 'item'}
             onClick={() => setItemSelected(item, index)}
           >
@@ -23,5 +23,5 @@ export default function Items({ items, setItemDetail }) {
         ))}
       </div>
     </div>
-  );
+  )
 }

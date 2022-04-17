@@ -41,7 +41,7 @@ export default function App () {
         )}
         <ItemDetail item={selectedItem} addToCart={addToCart} />
         <Cart items={cart} />
-        <Admin />
+        <Admin items={items} setItems={setItems} />
       </div>
     </div>
   )
