@@ -16,7 +16,6 @@ export default function App () {
   const [errorDisplay, setErrorDisplay] = useState('')
   const [numErrors, setNumErrors] = useState(1)
   const [inputLetter, setInputLetter] = useState('')
-  const [gameOver, setGameOver] = useState(false)
 
   const wrongGuessChars = {
     1: '(',
@@ -33,43 +32,32 @@ export default function App () {
     const currIndex = guessedLetters.indexOf('_')
     if (secretWord[currIndex] == letter) {
       // match
-      var changedValue = false
-      setGuessedLetters(
-        guessedLetters.map(currLetter => {
-          // change the left-most value only
-          if (!changedValue && currLetter == '_') {
-            changedValue = true
-            return letter
-          } else {
-            return currLetter
-          }
-        })
-      )
-      if (currIndex == 5) {
-        setGameOver(true)
-      }
+      const newGuessedLetters = [...guessedLetters]
+      newGuessedLetters[currIndex] = letter 
+      setGuessedLetters(newGuessedLetters)
     } else {
       // increase error count
       setErrorDisplay(errorDisplay + wrongGuessChars[numErrors])
       setNumErrors(numErrors + 1)
-      if (numErrors >= 8) {
-        setGameOver(true)
-      }
     }
     setInputLetter('')
+  }
+
+  if (numErrors >= 8) {
+    return <>YOU LOSE!</>
+  } else if (!guessedLetters.includes('_')) {
+    return <>YOU WIN!</>
   }
 
   const lettersToDisplay = guessedLetters.map(letter => <p>{letter}</p>)
 
   return (
-    <div>
+    <>
       <h2>Guess the word!</h2>
       <div className='letters'>{lettersToDisplay}</div>
-      {!gameOver && <input value={inputLetter} onChange={handleChange}></input>}
+      <input value={inputLetter} onChange={handleChange}></input>
       <p>Mistakes</p>
       <p>{errorDisplay}</p>
-      {gameOver && numErrors < 8 && <p>You Won!</p>}
-      {gameOver && numErrors >= 8 && <p>You Lost!</p>}
-    </div>
+    </>
   )
 }
