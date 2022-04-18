@@ -14,18 +14,10 @@ export default function App () {
   ])
 
   const [errorDisplay, setErrorDisplay] = useState('')
-  const [numErrors, setNumErrors] = useState(1)
+  const [errors, setErrors] = useState([])
   const [inputLetter, setInputLetter] = useState('')
 
-  const wrongGuessChars = {
-    1: '(',
-    2: '凸',
-    3: 'ಠ',
-    4: '益',
-    5: 'ಠ',
-    6: ')',
-    7: '凸'
-  }
+  const wrongGuessChars = ['(', '凸', 'ಠ', '益', 'ಠ', ')', '凸']
 
   const handleChange = event => {
     const letter = event.target.value
@@ -37,27 +29,28 @@ export default function App () {
       setGuessedLetters(newGuessedLetters)
     } else {
       // increase error count
-      setErrorDisplay(errorDisplay + wrongGuessChars[numErrors])
-      setNumErrors(numErrors + 1)
+      const newErrors = [...errors]
+      newErrors.append(wrongGuessChars[errors.length])
+      setErrors(newErrors)
     }
     setInputLetter('')
   }
 
-  if (numErrors >= 8) {
+  if (errors.length >= wrongGuessChars.length) {
     return <>YOU LOSE!</>
   } else if (!guessedLetters.includes('_')) {
     return <>YOU WIN!</>
   }
 
-  const formatGuessedLetters = (letters) => letters.map(letter => <span class="letter">{letter}</span>)
+  const formatLetters = (letters) => letters.map(letter => <span class="letter">{letter}</span>)
 
   return (
     <>
       <h2>Guess the word!</h2>
-      <div className='letters'>{formatGuessedLetters(guessedLetters)}</div>
+      <div className='letters'>{formatLetters(guessedLetters)}</div>
       <input value={inputLetter} onChange={handleChange}></input>
       <p>Mistakes</p>
-      <p>{errorDisplay}</p>
+      <p>{formatLetters(errors)}</p>
     </>
   )
 }
