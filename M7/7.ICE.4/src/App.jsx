@@ -49,12 +49,12 @@ export default function App () {
     return <>YOU WIN!</>
   }
 
-  const lettersToDisplay = guessedLetters.map(letter => <p>{letter}</p>)
+  const formatGuessedLetters = (letters) => letters.map(letter => <span class="letter">{letter}</span>)
 
   return (
     <>
       <h2>Guess the word!</h2>
-      <div className='letters'>{lettersToDisplay}</div>
+      <div className='letters'>{formatGuessedLetters(guessedLetters)}</div>
       <input value={inputLetter} onChange={handleChange}></input>
       <p>Mistakes</p>
       <p>{errorDisplay}</p>
