@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function Form() {
   // Control the form input value using a state variable name.
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
 
   const handleChange = (event) => {
     // Retrieve input field value from JS event object.
@@ -19,13 +19,17 @@ function Form() {
   return (
     <div>
       <input value={name} onChange={handleChange} />
-      <div>Name: {name}</div>
+      <div>
+        Name:
+        {' '}
+        {name}
+      </div>
     </div>
   );
 }
 
 function UppercaseForm() {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
 
   // Convert all user input to uppercase such that it's not possible
   // for the user to input lowercase characters.
@@ -43,13 +47,17 @@ function UppercaseForm() {
   return (
     <div>
       <input value={name} onChange={handleChange} />
-      <div>Name: {name}</div>
+      <div>
+        Name:
+        {' '}
+        {name}
+      </div>
     </div>
   );
 }
 
 function ValidationForm() {
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
 
   const handleNameChange = (event) => {
     // Retrieve input field value from JS event object.
@@ -65,11 +73,21 @@ function ValidationForm() {
   return (
     <div>
       <input value={name} onChange={handleNameChange} />
-      <div>Name: {name}</div>
+      <div>
+        Name:
+        {' '}
+        {name}
+      </div>
     </div>
   );
 }
 
 export default function App() {
-  return <><Form /><UppercaseForm /><ValidationForm /></>;
+  return (
+    <>
+      <Form />
+      <UppercaseForm />
+      <ValidationForm />
+    </>
+  );
 }
