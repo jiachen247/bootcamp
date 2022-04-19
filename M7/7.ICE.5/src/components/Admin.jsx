@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
-export default function Admin ({ items, setItems }) {
+export default function Admin ({ setItems }) {
   const initialValues = {
     itemName: '',
     itemDescription: '',
@@ -27,7 +27,7 @@ export default function Admin ({ items, setItems }) {
     }
     axios.post('/items', newItem).then(result => {
       console.log(result)
-      setItems([...items, result.data.item])
+      setItems(items => [...items, result.data.item])
     })
   }
 
